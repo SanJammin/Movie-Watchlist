@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+    font-family: "Inter", sans-serif;
+}
+
+header {
+    height: 208px;
+    background: url(../images/movie-bg.png);
+    display: flex;
+    color: white;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.site-title {
+    font-size: 2.25rem;
+}
+
+.watchlist-link {
+    color: white;
+    text-decoration: none;
+    font-size: 0.75rem;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-icon {
+    height: 40px;
+    border-radius: 6px;
+}
+
+.search-movie {
+    height: 40px;
+    border: none;
+    background-color: #2e2e2f;
+    border-radius: 6px;
+    color: #a5a5a5;
+    font-family: inherit;
+}
+
+.search-btn {
+    height: 40px;
+    border-radius: 6px;
+    border: none;
+    font-family: inherit;
+    color: white;
+    background-color: #4b4b4b;
+}
+
+.movie-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.default-text {
+    color: #2e2e2f;
+    font-weight: bold;
+    padding: 0.5em;
+    font-size: 1.15rem;
+}
