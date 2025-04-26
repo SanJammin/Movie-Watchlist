@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+    font-family: "Inter", sans-serif;
+}
+
+header {
+    height: 208px;
+    background: url(../images/movie-bg.png);
+    display: flex;
+    color: white;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.site-title {
+    font-size: 2.25rem;
+}
+
+.homepage-link {
+    color: white;
+    text-decoration: none;
+    font-size: 0.75rem;
+}
+
+.movie-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 208px);
+}
+
+.default-text {
+    color: #2e2e2f;
+    font-weight: bold;
+    padding: 0.5em;
+    font-size: 1.15rem;
+}
+
+.add-movies {
+    color: white;
+    font-weight: bold;
+    padding: 0.5em;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+}
+
+.add-icon {
+    padding-right: 0.5em;
+}
