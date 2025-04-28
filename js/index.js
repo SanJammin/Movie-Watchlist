@@ -25,15 +25,17 @@ searchBtn.addEventListener("click", (e) => {
                                 <div class="runtime-genre-add">
                                     <p class="runtime">${movieID.Runtime}</p>
                                     <p class="genre">${movieID.Genre}</p>
-                                    <img class="add-icon" src="./icons/add-icon.png" alt="A plus symbol">
-                                    <p class="add-watchlist">Watchlist</p>
+                                    <div class="add-to-watchlist">
+                                        <img class="add-icon" src="./icons/add-icon.png" alt="A plus symbol">
+                                        <p class="add-watchlist">Watchlist</p>
+                                    </div>
                                 </div>
                                 <div class="plot">
                                     <p class="movie-plot">${movieID.Plot}</p>
                                 </div>
                             </div>
-                            <div class="divider"></div>
                         </div>
+                        <div class="divider"></div>
                         `;
                     })
             });
