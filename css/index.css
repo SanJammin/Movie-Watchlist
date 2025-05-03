@@ -148,6 +148,7 @@ header {
 
 .add-icon {
     height: 15px;
+    cursor: pointer;
 }
 
 .plot {
