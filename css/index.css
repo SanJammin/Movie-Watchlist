@@ -164,3 +164,8 @@ header {
     border: 1px solid #2c2c2c;
     width: 100%;
 }
+
+.no-results {
+    font-size: 1.5rem;
+    color: #fff;
+}

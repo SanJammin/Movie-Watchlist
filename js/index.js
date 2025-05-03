@@ -9,7 +9,7 @@ searchBtn.addEventListener("click", (e) => {
         .then(res => res.json())
         .then(searchResults => {
             if (!searchResults.Search) {
-                movieList.innerHTML = `<p>No results found</p>`;
+                movieList.innerHTML = `<p class="no-results">No results found</p>`;
                 return;
             }
 
@@ -51,14 +51,15 @@ movieList.addEventListener("click", (e) => {
 function getMovieById(id) {
     return fetch(`http://www.omdbapi.com/?apikey=ba1b48&i=${id}`)
         .then(res => res.json());
-}
+};
 
 function renderMovieCard(movie) {
     const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
     const isInWatchlist = watchlist.some(w => w.imdbID === movie.imdbID);
 
     const iconSrc = isInWatchlist ? "./icons/minus-icon.png" : "./icons/add-icon.png";
-    const iconAlt = isInWatchlist ? "Add to Watchlist" : "Added to Watchlist";
+    const iconAlt = isInWatchlist ? "Added to Watchlist" : "Add to Watchlist";
+    const watchlistText = isInWatchlist ? "Remove from Watchlist" : "Add to Watchlist"
 
     return `
         <div class="movie-wrapper">
@@ -74,8 +75,8 @@ function renderMovieCard(movie) {
                         <p class="runtime">${movie.Runtime}</p>
                         <p class="genre">${movie.Genre}</p>
                         <div class="add-to-watchlist" data-id="${movie.imdbID}">
-                            <img class="add-icon" src=${iconSrc} alt=${iconAlt}">
-                            <p class="add-watchlist">Watchlist</p>
+                            <img class="add-icon" src="${iconSrc}" alt="${iconAlt}">
+                            <p class="add-watchlist">${watchlistText}</p>
                         </div>
                     </div>
                     <div class="plot">
