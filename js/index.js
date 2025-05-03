@@ -61,27 +61,29 @@ function renderMovieCard(movie) {
     const iconAlt = isInWatchlist ? "Add to Watchlist" : "Added to Watchlist";
 
     return `
-        <div class="movie-card">
-            <img src=${movie.Poster} alt="Poster of ${movie.Title}" class="movie-poster">
-            <div class="movie-details">
-                <div class="title-and-rating">
-                    <h2 class="movie-title">${movie.Title}</h2>
-                    <img class="star-rating" src="./icons/star-icon.png" alt="A Star">
-                    <p class="movie-rating">${movie.imdbRating}</p>
-                </div>
-                <div class="runtime-genre-add">
-                    <p class="runtime">${movie.Runtime}</p>
-                    <p class="genre">${movie.Genre}</p>
-                    <div class="add-to-watchlist" data-id="${movie.imdbID}">
-                        <img class="add-icon" src=${iconSrc} alt=${iconAlt}">
-                        <p class="add-watchlist">Watchlist</p>
+        <div class="movie-wrapper">
+            <div class="movie-card">
+                <img src=${movie.Poster} alt="Poster of ${movie.Title}" class="movie-poster">
+                <div class="movie-details">
+                    <div class="title-and-rating">
+                        <h2 class="movie-title">${movie.Title}</h2>
+                        <img class="star-rating" src="./icons/star-icon.png" alt="A Star">
+                        <p class="movie-rating">${movie.imdbRating}</p>
+                    </div>
+                    <div class="runtime-genre-add">
+                        <p class="runtime">${movie.Runtime}</p>
+                        <p class="genre">${movie.Genre}</p>
+                        <div class="add-to-watchlist" data-id="${movie.imdbID}">
+                            <img class="add-icon" src=${iconSrc} alt=${iconAlt}">
+                            <p class="add-watchlist">Watchlist</p>
+                        </div>
+                    </div>
+                    <div class="plot">
+                        <p class="movie-plot">${movie.Plot}</p>
                     </div>
                 </div>
-                <div class="plot">
-                    <p class="movie-plot">${movie.Plot}</p>
-                </div>
             </div>
+            <div class="divider"></div>
         </div>
-        <div class="divider"></div>
     `;
 };

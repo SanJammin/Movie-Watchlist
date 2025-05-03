@@ -95,19 +95,23 @@ header {
 
 /* Javascript Styling */
 
+.movie-wrapper {
+    width: 90%;
+    max-width: 500px;
+}
+
 .movie-card {
     display: flex;
     height: 197px;
     align-items: center;
     width: 100%;
     overflow: hidden;
-    padding-right: 1.5rem;
     box-sizing: border-box;
 }
 
 .movie-poster {
     height: 90%;
-    padding: 1rem 1rem 1rem 2.5rem;
+    padding: 1rem;
 }
 
 .title-and-rating {
@@ -158,6 +162,5 @@ header {
 
 .divider {
     border: 1px solid #2c2c2c;
-    width: 85%;
-    justify-self: flex-end;
+    width: 100%;
 }
