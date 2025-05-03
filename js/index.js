@@ -10,7 +10,7 @@ const ICONS = {
 searchBtn.addEventListener("click", (e) => {
     e.preventDefault();
     movieList.innerHTML = ``;
-    fetch(`http://www.omdbapi.com/?apikey=ba1b48&s=${searchMovie.value}`)
+    fetch(`https://www.omdbapi.com/?apikey=ba1b48&s=${searchMovie.value}`)
         .then(res => res.json())
         .then(searchResults => {
             if (!searchResults.Search) {
@@ -55,7 +55,7 @@ movieList.addEventListener("click", (e) => {
 });
 
 function getMovieById(id) {
-    return fetch(`http://www.omdbapi.com/?apikey=ba1b48&i=${id}`)
+    return fetch(`https://www.omdbapi.com/?apikey=ba1b48&i=${id}`)
         .then(res => res.json());
 };
 
