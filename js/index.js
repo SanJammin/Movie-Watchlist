@@ -23,18 +23,29 @@ searchBtn.addEventListener("click", (e) => {
 
 movieList.addEventListener("click", (e) => {
     const target = e.target.closest(".add-to-watchlist");
-    if (target) {
-        const imdbID = target.dataset.id;
+    if (!target) return;
 
-        getMovieById(imdbID).then(movie => {
-            const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+    const imdbID = target.dataset.id;
+    const icon = target.querySelector(".add-icon");
 
-            if (!watchlist.some(w => w.imdbID === movie.imdbID)) {
-                watchlist.push(movie);
-                localStorage.setItem("watchlist", JSON.stringify(watchlist));
-            }
-        });
-    }
+    getMovieById(imdbID).then(movie => {
+        let watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+        const isInWatchlist = watchlist.some(w => w.imdbID === imdbID);
+
+        if (isInWatchlist) {
+            watchlist = watchlist.filter(w => w.imdbID !== imdbID);
+            localStorage.setItem("watchlist", JSON.stringify(watchlist));
+
+            icon.src = "./icons/add-icon.png";
+            icon.alt = "Add to Watchlist";
+        } else {
+            watchlist.push(movie);
+            localStorage.setItem("watchlist", JSON.stringify(watchlist));
+
+            icon.src = "./icons/minus-icon.png";
+            icon.alt = "Added to Watchlist";
+        }
+    });
 });
 
 function getMovieById(id) {
@@ -43,6 +54,12 @@ function getMovieById(id) {
 }
 
 function renderMovieCard(movie) {
+    const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+    const isInWatchlist = watchlist.some(w => w.imdbID === movie.imdbID);
+
+    const iconSrc = isInWatchlist ? "./icons/minus-icon.png" : "./icons/add-icon.png";
+    const iconAlt = isInWatchlist ? "Add to Watchlist" : "Added to Watchlist";
+
     return `
         <div class="movie-card">
             <img src=${movie.Poster} alt="Poster of ${movie.Title}" class="movie-poster">
@@ -56,7 +73,7 @@ function renderMovieCard(movie) {
                     <p class="runtime">${movie.Runtime}</p>
                     <p class="genre">${movie.Genre}</p>
                     <div class="add-to-watchlist" data-id="${movie.imdbID}">
-                        <img class="add-icon" src="./icons/add-icon.png" alt="A plus symbol">
+                        <img class="add-icon" src=${iconSrc} alt=${iconAlt}">
                         <p class="add-watchlist">Watchlist</p>
                     </div>
                 </div>
