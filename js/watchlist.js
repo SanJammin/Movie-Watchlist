@@ -1,16 +1,12 @@
-let watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
 const movieList = document.getElementById("movie-list");
+const ICONS = {
+    add: "./icons/add-icon.png",
+    minus: "./icons/minus-icon.png",
+    star: "./icons/star-icon.png"
+};
 
-if (watchlist.length) {
-    movieList.innerHTML = watchlist.map(renderMovieCard).join("");
-    movieList.style.justifyContent = "flex-start";
-} else {
-    movieList.innerHTML = `
-        <p class="default-text">Your watchlist is looking a little empty...</p>
-        <p class="add-movies"><img class="add-icon" src="./icons/add-icon.png" >Let's add some movies</p>
-    `;
-    movieList.style.justifyContent = "center";
-}
+const watchlist = getWatchlist();
+updateWatchlistUI(watchlist);
 
 movieList.addEventListener("click", (e) => {
     const target = e.target.closest(".add-to-watchlist");
@@ -19,7 +15,7 @@ movieList.addEventListener("click", (e) => {
     const imdbID = target.dataset.id;
     const wrapper = target.closest(".movie-wrapper");
 
-    let updatedWatchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+    let updatedWatchlist = getWatchlist();
 
     updatedWatchlist = updatedWatchlist.filter (w => w.imdbID !== imdbID);
 
@@ -27,20 +23,13 @@ movieList.addEventListener("click", (e) => {
 
     wrapper.remove();
 
-    if(!updatedWatchlist.length) {
-        movieList.innerHTML = `
-            <p class="default-text">Your watchlist is looking a little empty...</p>
-            <p class="add-movies"><img class="add-icon" src="./icons/add-icon.png" >Let's add some movies</p>
-        `;
-        movieList.style.justifyContent = "center";
-    }
+    updateWatchlistUI(updatedWatchlist);
 });
 
-function renderMovieCard(movie) {
-    const watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+function renderMovieCard(movie, watchlist = []) {
     const isInWatchlist = watchlist.some(w => w.imdbID === movie.imdbID);
 
-    const iconSrc = isInWatchlist ? "./icons/minus-icon.png" : "./icons/add-icon.png";
+    const iconSrc = isInWatchlist ? ICONS.minus : ICONS.add;
     const iconAlt = isInWatchlist ? "Add to Watchlist" : "Added to Watchlist";
 
     return `
@@ -50,13 +39,13 @@ function renderMovieCard(movie) {
                 <div class="movie-details">
                     <div class="title-and-rating">
                         <h2 class="movie-title">${movie.Title}</h2>
-                        <img class="star-rating" src="./icons/star-icon.png" alt="A Star">
+                        <img class="star-rating" src="${ICONS.star}" alt="A Star">
                         <p class="movie-rating">${movie.imdbRating}</p>
                     </div>
                     <div class="runtime-genre-add">
                         <p class="runtime">${movie.Runtime}</p>
                         <p class="genre">${movie.Genre}</p>
-                        <div class="add-to-watchlist" data-id="${movie.imdbID}">
+                        <div class="add-to-watchlist" data-id="${movie.imdbID}" role="button" tabindex="0" aria-label="Add to watchlist">
                             <img class="add-icon" src="${iconSrc}" alt="${iconAlt}">
                             <p class="add-watchlist">Remove item</p>
                         </div>
@@ -69,4 +58,25 @@ function renderMovieCard(movie) {
             <div class="divider"></div>
         </div>
     `;
+};
+
+function renderEmptyState() {
+    return `
+        <p class="default-text">Your watchlist is looking a little empty...</p>
+        <p class="add-movies"><img class="add-icon" src="${ICONS.add}" >Let's add some movies</p>
+    `;
+}
+
+function updateWatchlistUI(updatedList) {
+    if (updatedList.length) {
+        movieList.innerHTML = updatedList.map(movie => renderMovieCard(movie, updatedList)).join("");
+        movieList.style.justifyContent = "flex-start";
+    } else {
+        movieList.innerHTML = renderEmptyState();
+        movieList.style.justifyContent = "center";
+    }
+}
+
+function getWatchlist() {
+    return JSON.parse(localStorage.getItem("watchlist")) || [];
 };
